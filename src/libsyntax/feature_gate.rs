@@ -415,9 +415,6 @@ declare_features! (
     // Use `?` as the Kleene "at most one" operator
     (active, macro_at_most_once_rep, "1.25.0", Some(48075), None),
 
-    // Infer outlives requirements; RFC 2093
-    (active, infer_outlives_requirements, "1.26.0", Some(44493), None),
-
     // Infer static outlives requirements; RFC 2093
     (active, infer_static_outlives_requirements, "1.26.0", Some(44493), None),
 
@@ -646,6 +643,8 @@ declare_features! (
     (accepted, repr_transparent, "1.28.0", Some(43036), None),
     // Defining procedural macros in `proc-macro` crates
     (accepted, proc_macro, "1.29.0", Some(38356), None),
+    // Infer outlives requirements; RFC 2093
+    (accepted, infer_outlives_requirements, "1.30.0", Some(44493), None),
 );
 
 // If you change this, please modify src/doc/unstable-book as well. You must
@@ -1084,12 +1083,6 @@ pub const BUILTIN_ATTRIBUTES: &'static [(&'static str, AttributeType, AttributeG
                                  "rustc_attrs",
                                  "never will be stable",
                                  cfg_fn!(rustc_attrs))),
-
-    // RFC #2093
-    ("infer_outlives_requirements", Normal, Gated(Stability::Unstable,
-                                   "infer_outlives_requirements",
-                                   "infer outlives requirements is an experimental feature",
-                                   cfg_fn!(infer_outlives_requirements))),
 
     // RFC #2093
     ("infer_static_outlives_requirements", Normal, Gated(Stability::Unstable,

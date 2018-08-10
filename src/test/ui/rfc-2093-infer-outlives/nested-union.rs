@@ -8,13 +8,9 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-#![feature(rustc_attrs)]
-#![feature(infer_outlives_requirements)]
 #![feature(untagged_unions)]
 #![allow(unions_with_drop_fields)]
 
-
-#[rustc_outlives]
 union Foo<'a, T> { //~ ERROR 18:1: 20:2: rustc_outlives
     field1: Bar<'a, T>
 }

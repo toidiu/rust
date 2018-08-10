@@ -1431,9 +1431,7 @@ fn predicates_defined_on<'a, 'tcx>(tcx: TyCtxt<'a, 'tcx, 'tcx>,
                                    def_id: DefId)
                                    -> ty::GenericPredicates<'tcx> {
     let explicit = tcx.explicit_predicates_of(def_id);
-    let predicates = if tcx.sess.features_untracked().infer_outlives_requirements {
-        [&explicit.predicates[..], &tcx.inferred_outlives_of(def_id)[..]].concat()
-    } else { explicit.predicates };
+    [&explicit.predicates[..], &tcx.inferred_outlives_of(def_id)[..]].concat()
 
     ty::GenericPredicates {
         parent: explicit.parent,

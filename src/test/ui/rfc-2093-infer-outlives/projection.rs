@@ -8,10 +8,6 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-#![feature(rustc_attrs)]
-#![feature(infer_outlives_requirements)]
-
-#[rustc_outlives]
 struct Foo<'a, T: Iterator> { //~ ERROR rustc_outlives
     bar: &'a T::Item
 }

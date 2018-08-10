@@ -8,10 +8,6 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-#![feature(rustc_attrs)]
-#![feature(infer_outlives_requirements)]
-
-#[rustc_outlives]
 struct Foo<'b, U> { //~ ERROR 15:1: 17:2: rustc_outlives
     bar: Bar<'b, U>
 }
