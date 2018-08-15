@@ -12,7 +12,7 @@ use rustc::hir;
 use rustc::hir::def_id::DefId;
 use rustc::hir::itemlikevisit::ItemLikeVisitor;
 use rustc::ty::subst::{Kind, Subst, UnpackedKind};
-use rustc::ty::{self, Ty, TyCtxt};
+use rustc::ty::{self, Ty, TyCtxt, TypeFoldable};
 use rustc::util::nodemap::FxHashMap;
 
 use super::explicit::ExplicitPredicatesMap;
@@ -208,14 +208,16 @@ fn insert_required_predicates_to_be_wf<'tcx>(
                 debug!("field_ty = {}", &field_ty);
                 debug!("ty in field = {}", &ty);
                 if let Some(ex_trait_ref) = obj.principal() {
-                    check_explicit_predicates(
-                        tcx,
-                        &ex_trait_ref.skip_binder().def_id,
-                        ex_trait_ref.with_self_ty(tcx, ty).skip_binder().substs,
-                        required_predicates,
-                        explicit_map,
-                        true,
-                    );
+                    if !ty.has_escaping_regions() {
+                        check_explicit_predicates(
+                            tcx,
+                            &ex_trait_ref.skip_binder().def_id,
+                            ex_trait_ref.with_self_ty(tcx, ty).skip_binder().substs,
+                            required_predicates,
+                            explicit_map,
+                            true,
+                        );
+                    }
                 }
             }
 
